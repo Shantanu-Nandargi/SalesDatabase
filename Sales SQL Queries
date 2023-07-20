@@ -1,0 +1,53 @@
+---Inspecting Data
+
+Select * from sampledata;
+
+-- checking unique values
+
+select distinct status from sampledata --Nice to plot
+select year_id from sampledata
+select distinct PRODUCTLINE from sampledata --Nice to plot
+select distinct COUNTRY from sampledata --Nice to plot
+select distinct DEALSIZE from sampledata --Nice to plot
+select distinct TERRITORY from sampledata --Nice to plot
+
+
+---Analysis
+---Grouping sales by productline
+select PRODUCTLINE, 
+SUM(sales) Revenue
+from sampledata
+group by PRODUCTLINE
+order by 2 desc;
+
+select YEAR_ID, 
+SUM(sales) Revenue
+from sampledata
+group by YEAR_ID
+order by 2 desc;
+
+select DEALSIZE, 
+SUM(sales) Revenue
+from sampledata
+group by DEALSIZE
+order by 2 desc;
+
+--reason for less sales in 2005
+Select distinct MONTH_ID from sampledata
+where YEAR_ID = 2005;
+
+--best month for sales per year
+select MONTH_ID,
+SUM(sales) Revenue, COUNT(ORDERNUMBER)
+from sampledata
+where YEAR_ID = 2004 
+group by MONTH_ID
+order by 2 desc;
+
+--Which product did we sell more in the month of November--
+select MONTH_ID, PRODUCTLINE,
+SUM(sales) Revenue, COUNT(ORDERNUMBER)
+from sampledata
+where YEAR_ID = 2003 AND MONTH_ID = 11 
+group by MONTH_ID, PRODUCTLINE
+order by 3 desc;
